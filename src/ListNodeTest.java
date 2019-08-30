@@ -14,11 +14,12 @@ public class ListNodeTest {
 
         ArrayList<Integer> res1 = new ArrayList<>();
         res1 = printListNode(res1, a);
-        System.out.println(res1);
+        System.out.println("print the ListNode: " + res1);
 
-        ArrayList<Integer> res2 = new ArrayList<>();
-        res2 = printListNodeReverse(res2, a);
-        System.out.println(res2);
+        System.out.println("Kth to tail: " + getReverseKthNode(a, 3));
+//        ArrayList<Integer> res2 = new ArrayList<>();
+//        res2 = printListNodeReverse(res2, a);
+//        System.out.println(res2);
 
 
         ArrayList<Integer> test = new ArrayList<>();
@@ -29,7 +30,9 @@ public class ListNodeTest {
         System.out.println("insert at 0: " + test);
 
         System.out.println("my method: " + b.toString());
-        System.out.println(reverse(a).toString());
+        System.out.println("reverse: " + reverse(a).toString());
+
+
     }
 
     public static ArrayList<Integer> printListNode(ArrayList<Integer> list, ListNode head){
@@ -76,6 +79,33 @@ public class ListNodeTest {
         next_node.next = head;
 
         return new_head;
+    }
+
+    public static int getReverseKthNode(ListNode head, int k){
+        int n = getLength(head);
+
+        ListNode fast = head;
+        int step = k - 1;
+
+        for (int i = 0; i < step; i++){
+            fast = fast.next;
+        }
+
+        ListNode slow = head;
+        while (fast.next != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow.val;
+    }
+
+    public static int getLength(ListNode head){
+        int count = 0;
+        while (head != null) {
+            head = head.next;
+            count++;
+        }
+        return count;
     }
 
 }

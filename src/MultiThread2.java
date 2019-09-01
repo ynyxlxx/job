@@ -68,7 +68,7 @@ public class MultiThread2 {
             while (i < 10){
                 try{
                     lock.lock();
-                    System.out.print(toPrint);
+                    System.out.print(i);
                     Thread.sleep(100);
                     printChar3.signal();
                     i++;

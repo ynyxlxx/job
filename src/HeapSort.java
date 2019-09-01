@@ -50,6 +50,7 @@ public class HeapSort {
 //        array[i] = array[j];
 //        array[j] = temp;
 //    }
+
 public static void main(String []args){
     int []arr = {3,1,4,2,8,5,9,7,6};
     sort(arr);

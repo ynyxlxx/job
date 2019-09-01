@@ -47,7 +47,7 @@ public class SortTest {
             return array[i] < array[j];
         }
 
-        public static void bubbleSort(int[] array){
+        public static void bubbleSort(int[] array){      //O(n^2)
             for (int i = 0; i < array.length; i++){
                 for (int j = 0; j < array.length - 1 - i; j++){
                     if(array[j] > array[j + 1])
@@ -56,7 +56,7 @@ public class SortTest {
             }
         }
 
-        public static void selectSort(int[] array){
+        public static void selectSort(int[] array){     //O(n^2)
             for (int i = 0; i < array.length; i++) {
                 int min = i;
                 for (int j = i + 1; j < array.length; j++){
@@ -156,7 +156,7 @@ public class SortTest {
         }
 
         /*使数组中任意间隔为h的数都是有序的.*/
-        public static void shellSort(int[] arr){
+        public static void shellSort(int[] arr){     //O(n^2)
             int N = arr.length;
             int h = 1;
 

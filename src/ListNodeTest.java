@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class ListNodeTest {
     public static void main(String [] args){
@@ -15,6 +16,7 @@ public class ListNodeTest {
         ArrayList<Integer> res1 = new ArrayList<>();
         res1 = printListNode(res1, a);
         System.out.println("print the ListNode: " + res1);
+        printListNodeReverse(a);
 
         System.out.println("Kth to tail: " + getReverseKthNode(a, 3));
 //        ArrayList<Integer> res2 = new ArrayList<>();
@@ -32,6 +34,27 @@ public class ListNodeTest {
         System.out.println("my method: " + b.toString());
         System.out.println("reverse: " + reverse(a).toString());
 
+        ListNode e = new ListNode(1);
+        ListNode f = new ListNode(2);
+        ListNode g = new ListNode(3);
+        ListNode h = new ListNode(4);
+
+        e.next = f;
+        f.next = g;
+        g.next = h;
+        h.next = null;
+
+        ListNode i = new ListNode(1);
+        ListNode j = new ListNode(2);
+        ListNode k = new ListNode(3);
+        ListNode l = new ListNode(4);
+
+        i.next = j;
+        j.next = k;
+        k.next = l;
+        l.next = null;
+
+        System.out.println(mergeTwoLists(e, i).toString());
 
     }
 
@@ -108,4 +131,72 @@ public class ListNodeTest {
         return count;
     }
 
+    public static void printListNodeReverse(ListNode head){
+        Stack<ListNode> stack = new Stack<>();
+
+        while (head != null){
+            stack.add(head);
+            head = head.next;
+        }
+
+        ArrayList<Integer> res = new ArrayList<>();
+        while (!stack.isEmpty()){
+            res.add(stack.pop().val);
+        }
+
+        System.out.println("reverse:" + res);
+    }
+
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+
+        ListNode temp = new ListNode(-1);
+        ListNode head = temp;
+        while(l1 != null || l2 != null){
+            if (l1.val < l2.val){
+                head.next = l1;
+                l1 = l1.next;
+                head = head.next;
+            }else{
+                head.next = l2;
+                l2 = l2.next;
+                head = head.next;
+            }
+
+            if (l1 == null) {
+                head.next = l2;
+                break;
+            }
+            if (l2 == null) {
+                head.next = l1;
+                break;
+            }
+        }
+        return temp.next;
+    }
+
+    public ListNode mergeKLists(ListNode[] lists){
+        if(lists.length == 0)
+            return null;
+        if(lists.length == 1)
+            return lists[0];
+        if(lists.length == 2){
+            return mergeTwoLists(lists[0],lists[1]);
+        }
+
+        int mid = lists.length/2;
+        ListNode[] l1 = new ListNode[mid];
+        for(int i = 0; i < mid; i++){
+            l1[i] = lists[i];
+        }
+
+        ListNode[] l2 = new ListNode[lists.length-mid];
+        for(int j = 0; j < lists.length - mid; j++){
+            l2[j] = lists[mid + j];
+        }
+
+        return mergeTwoLists(mergeKLists(l1),mergeKLists(l2));
+
+    }
 }

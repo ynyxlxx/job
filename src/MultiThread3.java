@@ -2,10 +2,13 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class MultiThread3 {
+    private static final int MAX_CAPACITY = 5;
     public static void main(String[] args){
         Queue<Integer> queue = new LinkedList<>();
-        Thread a = new Producer(queue, 15);
-        Thread b = new Consumer(queue, 10);
+
+        Producer a = new Producer(queue, MAX_CAPACITY);
+        Consumer b = new Consumer(queue, MAX_CAPACITY);
+
         a.start();
         b.start();
     }
@@ -13,48 +16,60 @@ public class MultiThread3 {
 }
 
 class Producer extends Thread{
-    Queue<Integer> queue = new LinkedList<>();
-    int n;
+    Queue<Integer> queue;
+    int max;
 
-    public Producer(Queue<Integer> queue, int n){
+    public Producer(Queue<Integer> queue, int max){
         this.queue = queue;
-        this.n = n;
+        this.max = max;
     }
 
     public void run(){
-        for (int i = 0; i < n; i++){
-            queue.offer(i);
-            System.out.println("producer: " + i);
-            try{
-                sleep((int) Math.random() * 100);
-            }catch (Exception e){
-                e.printStackTrace();
+        try{
+            while (true){
+                synchronized (queue){
+                    while (queue.size() == max){
+                        System.out.println("stop producing, the queue is full. ");
+                        queue.wait();
+                    }
+                    queue.offer(1);
+                    System.out.println(queue);
+                    queue.notifyAll();
+                }
             }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
 }
 
 class Consumer extends Thread{
-    Queue<Integer> queue = new LinkedList<>();
-    int n;
+    Queue<Integer> queue;
+    int max;
 
-    public Consumer(Queue<Integer> queue, int n){
+    public Consumer(Queue<Integer> queue, int max){
         this.queue = queue;
-        this.n = n;
+        this.max = max;
     }
 
     public void run(){
-        for (int i = 0; i < n; i++){
-            Integer temp = queue.poll();
-            if (temp != null){
-                System.out.println("    consumer: " + temp);
+        try{
+            while (true){
+                synchronized (queue){
+                    while(queue.isEmpty()){
+                        System.out.println("all sold out, waiting...");
+                        queue.wait();
+                    }
+                    queue.poll();
+                    System.out.println(queue);
+                    queue.notifyAll();
+                }
             }
-            try{
-                sleep((int) Math.random() * 100);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

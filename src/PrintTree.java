@@ -26,21 +26,31 @@ public class PrintTree {
 
         System.out.println("print the tree in a zig-zag: ");
         zigPrint(root);
+
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        ArrayList<Integer> path = new ArrayList<>();
+        System.out.println(findAllPath(root, res, path));
     }
 
     public static void linePrint(TreeNode root){
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
-
+        ArrayList<Integer> a = new ArrayList<>();
+        ArrayList<Integer> b = new ArrayList<>();
         if (root == null) return;
 
-        queue.add(root);
+        queue.offer(root);
         int thisLine = 1;
         int nextline = 0;
+        Boolean flag = true;
         while(!queue.isEmpty())
         {
             TreeNode temp = queue.poll();
             System.out.print(temp.val + " ");
             thisLine--;
+            if (flag){
+                b.add(temp.val);
+                flag = false;
+            }
 
             if (temp.left != null) {
                 queue.offer(temp.left);
@@ -54,10 +64,14 @@ public class PrintTree {
 
             if (thisLine == 0) {
                 System.out.print("\n");
+                a.add(temp.val);
                 thisLine = nextline;
                 nextline = 0;
+                flag = true;
             }
         }
+        System.out.println("right view: " + a);
+        System.out.println("left view: " + b);
     }
 
     public static void zigPrint(TreeNode root){
@@ -90,5 +104,40 @@ public class PrintTree {
                 next = 1 - next;
             }
         }
+    }
+
+    private static ArrayList<ArrayList<Integer>> findAllPath(TreeNode root, ArrayList<ArrayList<Integer>> result,
+                                                            ArrayList<Integer> path){
+        if (root == null) return result;
+
+        path.add(root.val);
+        if (root.left == null && root.right == null){
+            result.add(new ArrayList<>(path));
+        }
+
+        findAllPath(root.left, result, path);
+        findAllPath(root.right, result, path);
+
+        path.remove(path.size() - 1);
+        return result;
+    }
+
+    private static TreeNode KthNode(TreeNode root, int k){
+        if (root == null || k <= 0) return null;
+
+        int counter = 0;
+        Stack<TreeNode> st = new Stack<>();
+        while (!st.isEmpty() || root != null){
+            if (root != null){
+                st.push(root);
+                root = root.left;
+            }else{
+                root = st.pop();
+                counter++;
+                if (counter == k)  return root;
+                root = root.right;
+            }
+        }
+      return null;
     }
 }

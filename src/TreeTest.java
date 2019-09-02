@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Stack;
-import java.util.List;
+import java.util.*;
 
 public class TreeTest {
     public static void main(String[] args){
@@ -46,6 +43,8 @@ public class TreeTest {
         ArrayList<Integer> z = new ArrayList<>();
         zhongxu(z, root);
         System.out.println(z);
+
+        printInLine(root);
     }
 
     public static void preOrder(TreeNode root, ArrayList<Integer> list){
@@ -153,7 +152,7 @@ public class TreeTest {
      */
     private static void zhongxu(List<Integer> list, TreeNode root) {
         Stack<TreeNode> stack = new Stack<TreeNode>();
-        while (!stack.isEmpty() || root!=null) {
+        while (!stack.isEmpty() || root != null) {
             if (root != null) {
                 stack.push(root);
                 root = root.left;
@@ -184,6 +183,68 @@ public class TreeTest {
         while (!stack2.isEmpty()) {
             list.add(stack2.pop().val);
         }
+    }
+
+    public static void printInLine(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        if (root == null) return;
+
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            TreeNode temp = queue.poll();
+            System.out.print(temp.val + " ");
+
+            if (temp.left != null) queue.offer(temp.left);
+            if (temp.right != null) queue.offer(temp.right);
+        }
+    }
+
+    public TreeNode reConstructBinaryTree(int [] pre,int [] in) {
+        if (pre.length == 0 || in.length == 0) return null;
+
+        TreeNode root = new TreeNode(pre[0]);
+        for (int i = 0; i < in.length; i++){
+            if (in[i] == pre[0]) {
+                // 左子树，注意 copyOfRange 函数，左闭右开
+                root.left = reConstructBinaryTree(Arrays.copyOfRange(pre, 1, i + 1), Arrays.copyOfRange(in, 0, i));
+                // 右子树，注意 copyOfRange 函数，左闭右开
+                root.right = reConstructBinaryTree(Arrays.copyOfRange(pre, i + 1, pre.length), Arrays.copyOfRange(in, i + 1, in.length));
+                break;
+            }
+        }
+        return root;
+    }
+
+    public boolean HasSubtree(TreeNode root1,TreeNode root2) {
+        if (root2 == null || root1 == null) return false;
+        Boolean res = false;
+
+        if (root1.val == root2.val){
+            res = DoesTree1HaveTree2(root1, root2);
+        }
+
+        if(!res)  res = HasSubtree(root1.left, root2);
+        if(!res)  res = HasSubtree(root1.right, root2);
+
+        return res;
+    }
+    public boolean DoesTree1HaveTree2(TreeNode root1, TreeNode root2){
+        if (root2 == null) return true;
+        if (root1 == null) return false;
+        if (root1.val != root2.val) return false;
+        return DoesTree1HaveTree2(root1.left, root2.left) && DoesTree1HaveTree2(root1.right, root2.right);
+    }
+
+    public void Mirror(TreeNode root) {
+        if (root == null) return;
+        if (root.left == null && root.right == null) return;
+
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        if (root.left != null) Mirror(root.left);
+        if (root.right != null) Mirror(root.right);
     }
 
 }

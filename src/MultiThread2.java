@@ -1,3 +1,4 @@
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.*;
@@ -109,24 +110,5 @@ public class MultiThread2 {
         }
     }
 }
-//单例模式 饿汉式
-//class Printer implements Runnable{
-////    private String toPrint;
-////    private static Printer instance = new Printer("A");
-////
-////    private Printer(String s){
-////        this.toPrint = s;
-////    }
-////
-////    @Override
-////    public void run(){
-////        for (int i = 0; i < 50; i++){
-////            System.out.print(toPrint);
-////        }
-////    }
-////
-////    public static Printer getPrinter(){
-////        return instance;
-////    }
-////}
+
 

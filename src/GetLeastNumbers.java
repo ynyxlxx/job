@@ -22,7 +22,7 @@ public class GetLeastNumbers {
                 index = Partitation(b, start, end);
             }
         }
-        for (int m = 0; m < k; m++) System.out.print(b[m] + ", ");
+        for (int m = 0; m < k; m++) System.out.print(b[m] + " ");
     }
 
     public static int Partitation(int[] array, int lo, int hi){
@@ -55,5 +55,17 @@ public class GetLeastNumbers {
         sort(array, p + 1, hi);
     }
 
+    public static int selectKth(int[] arr, int k){
+        int lo = 0;
+        int hi = arr.length - 1;
+
+        while (lo < hi){
+            int p = Partitation(arr, lo, hi);
+            if (p == k) return arr[k];
+            if (p < k) hi = p - 1;
+            if (p > k) lo = p + 1;
+        }
+        return arr[k];
+    }
 
 }

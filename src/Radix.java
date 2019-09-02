@@ -2,7 +2,7 @@ public class Radix {
     private static char[] array = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
     public static void main(String[] args){
-        int a = 164;
+        int a = 168;
         System.out.println(radix(a, 16));
     }
 

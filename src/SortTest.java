@@ -81,8 +81,8 @@ public class SortTest {
             int v = array[lo];
 
             while (true){
-                while (array[++i] < v) if (i == j) return j;
-                while (array[--j] > v) if (j == i) return i;
+                while (array[++i] < v) if (i == hi) break;
+                while (array[--j] > v) if (j == lo) break;
 
                 if (i >= j) break;
                 exch(array, i, j);

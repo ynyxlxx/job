@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.LinkedList;
 
 public class ListNodeTest {
     public static void main(String [] args){
@@ -90,6 +91,23 @@ public class ListNodeTest {
             pNode = pNext; //将pNode的下一个结点复制给pNode
         }
         return pReversedHead;
+    }
+
+    public static ListNode reverseList(ListNode head, int n, int m){
+        ListNode dummpy = new ListNode(-1);
+        dummpy.next = head;
+        ListNode pre = dummpy;
+        for (int i = 0; i < m - 1; i++) {
+            pre = pre.next;
+        }
+        ListNode cur = pre.next;
+        for (int i = m; i < n; i++) {
+            ListNode t = cur.next;
+            cur.next = t.next;
+            t.next = pre.next;
+            pre.next = t;
+        }
+        return dummpy.next;
     }
 
     public static ListNode reverse(ListNode head){
@@ -198,5 +216,20 @@ public class ListNodeTest {
 
         return mergeTwoLists(mergeKLists(l1),mergeKLists(l2));
 
+    }
+
+    public static int LastRemaining_Solution(int n, int m) {
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        for (int i = 0; i < n; i ++) {
+            list.add(i);
+        }
+
+        int bt = 0;
+        while (list.size() > 1) {
+            bt = (bt + m - 1) % list.size();
+            list.remove(bt);
+        }
+
+        return list.size() == 1 ? list.get(0) : -1;
     }
 }

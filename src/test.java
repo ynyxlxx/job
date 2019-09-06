@@ -12,6 +12,7 @@ public class test {
             char a = 'A'; // 'A' = 65, '0' = 48, 'a' = 97
             for (int i = 0; i < 26; i++){
                 System.out.print((char) (97 + i));
+                if (i == 25) System.out.print("\n");
             }
 
             Collections.binarySearch(new ArrayList<Integer>(), 1);
@@ -24,6 +25,19 @@ public class test {
                 e[N - 1 - i] = temp;
             }
             System.out.println(Arrays.toString(e));
+
+            int[] arr1 = {1,2,3,4,5,6,7}; //find all element in arr1 but not in arr2.
+            int[] arr2 = {2,4,6};
+
+            HashSet<Integer> hs = new HashSet<>();
+            for (int i : arr2){
+                hs.add(i);
+            }
+            for (int i : arr1){
+                if (!hs.contains(i)){
+                    System.out.print(i + "\t");
+                }
+            }
         }
 }
 

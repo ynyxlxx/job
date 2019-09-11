@@ -45,30 +45,34 @@ public class TreeTest {
         System.out.println(z);
 
         printInLine(root);
+        System.out.println();
+        System.out.println(getKthNode(root, 1).val);
+
     }
 
     public static void preOrder(TreeNode root, ArrayList<Integer> list){
-        if (root != null){
-            list.add(root.val);
-            preOrder(root.left, list);
-            preOrder(root.right, list);
-        }
+        if (root == null) return;
+
+        list.add(root.val);
+        preOrder(root.left, list);
+        preOrder(root.right, list);
     }
 
     public static void inOrder(TreeNode root, ArrayList<Integer> list){
-        if (root != null){
-            inOrder(root.left, list);
-            list.add(root.val);
-            inOrder(root.right, list);
-        }
+        if (root == null) return;
+
+        inOrder(root.left, list);
+        list.add(root.val);
+        inOrder(root.right, list);
+
     }
 
     public static void postOrder(TreeNode root, ArrayList<Integer> list){
-        if (root != null){
-            postOrder(root.left, list);
-            postOrder(root.right, list);
-            list.add(root.val);
-        }
+        if (root == null) return;
+
+        postOrder(root.left, list);
+        postOrder(root.right, list);
+        list.add(root.val);
     }
 
     public static int depthOfTree(TreeNode root){
@@ -153,16 +157,16 @@ public class TreeTest {
     private static void zhongxu(List<Integer> list, TreeNode root) {
         Stack<TreeNode> stack = new Stack<TreeNode>();
         while (!stack.isEmpty() || root != null) {
-            if (root != null) {
+            while (root != null) {
                 stack.push(root);
                 root = root.left;
-            }else {
+            }
                 root = stack.pop();
                 list.add(root.val);
                 root = root.right;
             }
         }
-    }
+
     /**
      * 后序遍历
      */
@@ -245,6 +249,63 @@ public class TreeTest {
 
         if (root.left != null) Mirror(root.left);
         if (root.right != null) Mirror(root.right);
+    }
+
+    public TreeLinkNode GetNext(TreeLinkNode pNode){
+        if (pNode.right != null) {
+            TreeLinkNode pRight = pNode.right;
+            while (pRight.left != null) {
+                pRight = pRight.left;
+            }
+            return pRight;
+        }
+        // 2.
+        if (pNode.next != null && pNode.next.left == pNode) {
+            return pNode.next;
+        }
+        // 3.
+        if (pNode.next != null) {
+            TreeLinkNode pNext = pNode.next;
+            while (pNext.next != null && pNext.next.right == pNext) {
+                pNext = pNext.next;
+            }
+            return pNext.next;
+        }
+        return null;
+    }
+//////////////////////////////////////////////////////////////////////////////////
+    boolean isSymmetrical(TreeNode pRoot)
+    {
+        if(pRoot == null){
+            return true;
+        }
+        return comRoot(pRoot.left, pRoot.right);
+    }
+    private boolean comRoot(TreeNode left, TreeNode right) {
+        if(left == null) return right==null;
+        if(right == null) return false;
+        if(left.val != right.val) return false;
+        return comRoot(left.right, right.left) && comRoot(left.left, right.right);
+    }
+
+    private static TreeNode getKthNode(TreeNode root, int k){
+        if (root == null || k <= 0) return null;
+        Stack<TreeNode> st = new Stack<>();
+        int count = 0;
+        while (!st.isEmpty() || root != null){
+            while (root != null){
+                st.push(root);
+                root = root.left;
+            }
+
+                root = st.pop();
+                count++;
+                if (count == k)
+                    return root;
+
+                root = root.right;
+            }
+        return null;
     }
 
 }

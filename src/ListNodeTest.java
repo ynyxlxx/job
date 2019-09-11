@@ -57,6 +57,18 @@ public class ListNodeTest {
 
         System.out.println(mergeTwoLists(e, i).toString());
 
+        ListNode m = new ListNode(1);
+        ListNode n = new ListNode(2);
+        ListNode o = new ListNode(3);
+        ListNode p = new ListNode(4);
+
+        m.next = n;
+        n.next = o;
+        o.next = p;
+        p.next = null;
+
+        System.out.println(isLoop(m));
+
     }
 
     public static ArrayList<Integer> printListNode(ArrayList<Integer> list, ListNode head){
@@ -94,9 +106,9 @@ public class ListNodeTest {
     }
 
     public static ListNode reverseList(ListNode head, int n, int m){
-        ListNode dummpy = new ListNode(-1);
-        dummpy.next = head;
-        ListNode pre = dummpy;
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode pre = dummy;
         for (int i = 0; i < m - 1; i++) {
             pre = pre.next;
         }
@@ -107,7 +119,7 @@ public class ListNodeTest {
             t.next = pre.next;
             pre.next = t;
         }
-        return dummpy.next;
+        return dummy.next;
     }
 
     public static ListNode reverse(ListNode head){
@@ -231,5 +243,80 @@ public class ListNodeTest {
         }
 
         return list.size() == 1 ? list.get(0) : -1;
+    }
+
+    private static boolean isLoop(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null){
+            slow = slow.next;
+            fast = fast.next;
+
+            if (fast.next != null){
+                fast = fast.next;
+            }
+
+            if (fast == slow) return true;
+            if (fast.next == null) return false;
+        }
+        return false;
+    }
+
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+
+        // Empty list
+        if (head == null) {
+            return null;
+        }
+
+        // Move the two pointers until they reach the proper starting point
+        // in the list.
+        ListNode cur = head, prev = null;
+        while (m > 1) {
+            prev = cur;
+            cur = cur.next;
+            m--;
+            n--;
+        }
+        System.out.println(m);
+        System.out.println(n);
+        // The two pointers that will fix the final connections.
+        ListNode con = prev, tail = cur;
+
+        // Iteratively reverse the nodes until n becomes 0.
+        ListNode third = null;
+        while (n > 0) {
+            third = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = third;
+            n--;
+        }
+
+        // Adjust the final connections as explained in the algorithm
+        if (con != null) {
+            con.next = prev;
+        } else {
+            head = prev;
+        }
+
+        tail.next = cur;
+        return head;
+    }
+
+    public ListNode swapPairs(ListNode head) {
+        ListNode pre = new ListNode(0);
+        pre.next = head;
+        ListNode temp = pre;   // 0 -> 1 -> 2 -> 3 -> 4
+        while(temp.next != null && temp.next.next != null) {
+            ListNode start = temp.next;
+            ListNode end = temp.next.next;
+            temp.next = end;
+            start.next = end.next;
+            end.next = start;
+            temp = start;
+        }
+        return pre.next;
     }
 }

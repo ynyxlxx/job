@@ -11,7 +11,7 @@ public class StringTest {
 //            String b = sc.nextLine();
 //            System.out.println(longestCommonSubstring(a, b));
 //        }
-        String a = "123cababababa";
+        String a = "123cababababac";
         String b = "123ababababa";
         System.out.println(longestCommonSubstring(a, b));
     }
@@ -21,11 +21,11 @@ public class StringTest {
         int m = b.length();
 
         int[][] dp = new int[n + 1][m + 1];
-        for (int i = 0; i <= n; i++){
-            for (int j = 0; j <= m; j++){
-                dp[i][j] = 0;
-            }
-        }
+//        for (int i = 0; i <= n; i++){
+//            for (int j = 0; j <= m; j++){
+//                dp[i][j] = 0;
+//            }
+//        }
         int max = 0;
         int pos = 0;
         for (int i = 1; i <= n; i++){
@@ -67,6 +67,7 @@ public class StringTest {
         }
         return ans;
     }
+
 
     public String longestPalindrome(String s) {
         int len = s.length();
@@ -124,23 +125,24 @@ public class StringTest {
         return dp[0][n - 1];
     }
 
-    public int coinChange(int[] coins, int amount) {
-        int n = coins.length;
-        int[] dp = new int[amount + 1];
+    public String addStrings(String num1, String num2) {
+        StringBuffer sb = new StringBuffer("");
+        int i = num1.length() - 1;
+        int j = num2.length() - 1;
+        int carry = 0;
 
-
-        Arrays.fill(dp, amount + 1);
-        dp[0] = 0;
-        //dp[i] 表示 金额为i时的最小硬币数量；
-        for (int i = 0; i <= amount; i++){
-            for (int j = 0; j < n; j++){
-                if(coins[j] <= i){
-                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
-                }
-            }
+        while (i >= 0 || j >= 0){
+            int n1 = i >= 0 ? num1.charAt(i) - '0' : 0;
+            int n2 = j >= 0 ? num2.charAt(j) - '0' : 0;
+            int temp = n1 + n2 + carry;
+            carry = temp / 10;
+            temp = temp % 10;
+            sb.append(temp);
+            i--;
+            j--;
         }
-        // System.out.println(Arrays.toString(dp));
-        return dp[amount] > amount ? -1 : dp[amount];
+        if (carry == 1) sb.append(1);
+        return sb.reverse().toString();
     }
 
 }

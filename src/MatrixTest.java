@@ -115,4 +115,28 @@ public class MatrixTest {
 
         return dp[0];
     }
+
+    private static void rotate(int[] nums, int k) {
+        int pre;
+        for (int i = 0; i < k; i++){
+            pre = nums[nums.length-1];
+            for (int j = 0; j < nums.length; j++){
+                int temp = nums[j];
+                nums[j] = pre;
+                pre = temp;
+                System.out.println(Arrays.toString(nums));
+            }
+        }
+    }
+
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
 }

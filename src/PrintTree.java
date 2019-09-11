@@ -30,6 +30,10 @@ public class PrintTree {
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
         ArrayList<Integer> path = new ArrayList<>();
         System.out.println(findAllPath(root, res, path));
+
+        ArrayList<ArrayList<Integer>> res2 = new ArrayList<>();
+        res2 = Print(root);
+        System.out.println(res2);
     }
 
     public static void linePrint(TreeNode root){
@@ -139,5 +143,44 @@ public class PrintTree {
             }
         }
       return null;
+    }
+
+    private static ArrayList<ArrayList<Integer> > Print(TreeNode root) {
+        ArrayList<ArrayList<Integer> > ans = new ArrayList<>();
+        Stack<TreeNode>[] st = new Stack[]{new Stack<TreeNode>(), new Stack<TreeNode>()};
+
+        if (root == null) return ans;
+
+        int cur = 0;
+        int next = 1;
+        ArrayList<Integer> path = new ArrayList<>();
+        st[cur].push(root);
+        while (!st[0].isEmpty() || !st[1].isEmpty()){
+            TreeNode temp = st[cur].pop();
+            path.add(temp.val);
+
+            if (cur == 0){
+                if (temp.left != null)
+                    st[next].push(temp.left);
+                if (temp.right != null)
+                    st[next].push(temp.right);
+            }
+
+            if (cur == 1){
+                if (temp.right != null)
+                    st[next].push(temp.right);
+                if (temp.left != null)
+                    st[next].push(temp.left);
+            }
+
+            if (st[cur].isEmpty()){
+                ans.add(new ArrayList(path));
+                System.out.println("ans: " + path);
+                path.clear();
+                cur = 1 - cur;
+                next = 1 - next;
+            }
+        }
+        return ans;
     }
 }

@@ -14,8 +14,8 @@ public class DP {
             dp[i][0] = 0;
         }
         //初始化第一行。第一行表示只有一个物品。所以只要capacity >= weights[0]，就初始化为values[0]
-        for (int i = 1; i <= capacity ; i++) {
-            dp[0][i] = capacity >= weights[0] ? values[0] : 0;
+        for (int j = 1; j <= capacity ; j++) {
+            dp[0][j] = capacity >= weights[0] ? values[0] : 0;
         }
         for (int i = 1; i < len ; i++) {
             for (int j = 1; j <= capacity ; j++) {
@@ -49,5 +49,22 @@ public class DP {
         }
         // System.out.println(Arrays.toString(dp));
         return dp[amount] > amount ? -1 : dp[amount];
+    }
+
+    public int maxProfit(int[] prices, int fee) {
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+
+        for (int i = 0; i < n; i++){
+            if (i == 0) {
+                dp[i][0] = 0;
+                dp[i][1] = -prices[i];
+                continue;
+            }
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i-1][1] + prices[i] - fee);
+            dp[i][1] = Math.max(dp[i - 1][0] - prices[i], dp[i - 1][1]);
+        }
+        return dp[n-1][0];
+
     }
 }

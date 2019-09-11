@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 
 public class FirstNotRepeatingChar {
     public static void main(String[] args){
@@ -24,6 +25,7 @@ public class FirstNotRepeatingChar {
             if(map.get(str.charAt(i)) == 1)
                 return i;
         }
+
         return -1;
     }
 }

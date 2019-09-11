@@ -8,6 +8,7 @@ public class test {
             HashSet<String> set = new HashSet<>();
             LinkedList<String> linkedList = new LinkedList<>();
             ArrayList<String> arrayList = new ArrayList<>();
+            TreeSet<Integer> ts = new TreeSet<>();
 
             char a = 'A'; // 'A' = 65, '0' = 48, 'a' = 97
             for (int i = 0; i < 26; i++){
@@ -38,6 +39,25 @@ public class test {
                     System.out.print(i + "\t");
                 }
             }
+
+            System.out.println(Integer.MIN_VALUE);
+
+            String[] test1 = new String("ABcdS").split("");
+            System.out.println(Arrays.toString(test1));
+
+            Scanner sc = new Scanner(System.in);
+
+            int n = sc.nextInt();
+            int[] numbers = new int[n];
+            for (int i = 0; i < n; i++){
+                numbers[i] = sc.nextInt();
+//            String[] temp = sc.nextLine().trim().split(" ");
+//            System.out.println(Arrays.toString(temp));
+            }
+            System.out.println(Arrays.toString(numbers));
+            
+
         }
+
 }
 

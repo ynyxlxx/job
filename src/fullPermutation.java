@@ -50,6 +50,16 @@ public class fullPermutation {
         return res;
     }
 
+    public void process(int[] candidates, int start, int target, List<Integer> list) {
+        if (target < 0) return;
 
-
+//        if (target == 0) res.add(new ArrayList(list));
+        else {
+            for (int i = start; i < candidates.length; i++) {
+                list.add(candidates[i]);
+                process(candidates, i, target - candidates[i], list);
+                list.remove(list.size() - 1);
+            }
+        }
+    }
 }

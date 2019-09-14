@@ -14,6 +14,7 @@ public class StringTest {
         String a = "123cababababac";
         String b = "123ababababa";
         System.out.println(longestCommonSubstring(a, b));
+
     }
 
     public static String longestCommonSubstring(String a, String b){

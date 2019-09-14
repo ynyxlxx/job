@@ -319,4 +319,19 @@ public class ListNodeTest {
         }
         return pre.next;
     }
+
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode cur = head;
+        if (head == null) return null;
+
+        while (cur != null && cur.next != null){
+            if (cur.val == cur.next.val){
+                cur.next = cur.next.next;
+            }else{
+                cur = cur.next;
+            }
+        }
+
+        return head;
+    }
 }

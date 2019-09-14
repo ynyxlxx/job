@@ -55,7 +55,9 @@ public class test {
 //            System.out.println(Arrays.toString(temp));
             }
             System.out.println(Arrays.toString(numbers));
-            
+
+            StringBuffer sb = new StringBuffer();
+            sb.deleteCharAt(0);
 
         }
 

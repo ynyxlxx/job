@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 import java.util.LinkedList;
 
@@ -68,6 +69,10 @@ public class ListNodeTest {
         p.next = null;
 
         System.out.println(isLoop(m));
+
+//        ListNode[] arr = new ListNode[]{m,n,o,p};
+//        Arrays.sort(arr);
+//        System.out.println("sort: " + arr);
 
     }
 
@@ -334,4 +339,5 @@ public class ListNodeTest {
 
         return head;
     }
+
 }

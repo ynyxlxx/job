@@ -29,6 +29,8 @@ public class hashMapTest {
         map.put("E", 50);
         map.put("F", 60);
 
+        LinkedHashMap<String, String> link = new LinkedHashMap<>();
+
         for (Map.Entry<String, Integer> entry: map.entrySet()){
             if (entry.getKey() == "E"){
                 System.out.println("find E: " + entry.getValue());
@@ -37,5 +39,10 @@ public class hashMapTest {
         }
 
         System.out.println(map.entrySet());
+
+        Iterator iter = map.entrySet().iterator();
+        while (iter.hasNext()){
+            System.out.println(iter.next());
+        }
     }
 }

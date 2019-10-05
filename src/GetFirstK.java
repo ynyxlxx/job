@@ -1,3 +1,5 @@
+import java.util.Collections;
+
 public class GetFirstK {
     public static void main(String[] args) {
         int[] a = new int[]{1, 2, 2, 3, 3, 3, 3, 4, 5};

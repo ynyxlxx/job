@@ -7,6 +7,8 @@ public class GetLeastNumbers {
 
         sort(a, 0, a.length - 1);
         System.out.println("Sorted arrays: " + Arrays.toString(a));
+        System.out.println("binary search for 4: " + binarySearch(a, 4));
+        System.out.println("binary search for 9: " + binarySearch(a, 9));
 
         int index = Partitation(b, 0, a.length - 1);
         int end = b.length - 1;
@@ -68,4 +70,18 @@ public class GetLeastNumbers {
         return arr[k];
     }
 
+    private static int binarySearch(int[] arr, int target){
+        int lo = 0;
+        int hi = arr.length - 1;
+        int mid = 0;
+
+        while (lo <= hi){
+            mid = (lo + hi) >>> 1;
+            if (arr[mid] == target) return mid;
+
+            if (arr[mid] > target) hi = mid - 1;
+            if (arr[mid] < target) lo = mid + 1;
+        }
+        return -1;
+    }
 }

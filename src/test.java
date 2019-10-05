@@ -59,6 +59,9 @@ public class test {
             StringBuffer sb = new StringBuffer();
             sb.deleteCharAt(0);
 
+            Queue<String> queue2 = new PriorityQueue<>();
+
+
         }
 
 }

@@ -29,7 +29,7 @@ public class MultiThread4 {
             while (i < 50){
                 synchronized (lock){
                     try {
-                        lock.notifyAll();
+                        lock.notify();
                         System.out.print(toPrint);
                         i++;
                         Thread.sleep(100);

@@ -27,6 +27,15 @@ public class MultiThread2 {
             e.printStackTrace();
         }
 
+//        Runnable print = new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("haha");
+//            }
+//        };
+//
+//        Thread test = new Thread(print);
+//        test.start();
     }
 
     private static class PrintTesk implements Runnable {
@@ -108,6 +117,11 @@ public class MultiThread2 {
                 }
             }
         }
+    }
+
+    private static class a extends Thread{
+        @Override
+        public void run(){}
     }
 }
 

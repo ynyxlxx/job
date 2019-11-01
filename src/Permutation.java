@@ -13,6 +13,15 @@ public class Permutation {
         permutation(arr, ans, path, visited);
         System.out.println(ans);
 
+        int[] c = new int[]{1,2,3,4};
+        ArrayList<Integer> temp = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        boolean[] visit = new boolean[c.length];
+
+//        permutation(c, temp, visit);
+
+        permutation(c, c.length, result, temp, visit);
+        System.out.println(result);
     }
 
     private static void permutation(String s, String ans, ArrayList<String> list){
@@ -41,6 +50,44 @@ public class Permutation {
                 permutation(arr, ans, path, visited);
                 path.deleteCharAt(path.length()-1);
                 visited.remove(arr[i]);
+            }
+        }
+    }
+
+    private static void permutation(int[] arr, ArrayList<Integer> path, boolean[] visited){
+        if (path.size() == arr.length){
+
+            StringBuilder sb = new StringBuilder("");
+            for (int i : path){
+                sb.append(i + " ");
+            }
+
+            System.out.println(sb.toString());
+        }
+
+        for (int i = 0; i < arr.length; i++){
+            if (visited[i] == false){
+                path.add(arr[i]);
+                visited[i] = true;
+                permutation(arr, path, visited);
+                path.remove(path.size() - 1);
+                visited[i] = false;
+            }
+        }
+    }
+
+    private static void permutation(int[] arr,int size, ArrayList<ArrayList<Integer>> res, List<Integer> path, boolean[] visited){
+        if (path.size() == size){
+            res.add(new ArrayList<>(path));
+        }
+
+        for (int i = 0; i < arr.length; i++){
+            if (visited[i] == false){
+                visited[i] = true;
+                path.add(arr[i]);
+                permutation(arr, size, res, path, visited);
+                visited[i] = false;
+                path.remove(path.size() - 1);
             }
         }
     }

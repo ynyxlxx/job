@@ -6,12 +6,13 @@ import java.util.Stack;
 public class fullPermutation {
 
     public static void main(String[] args) {
-        int[] nums = new int[]{1, 2, 2};
+        int[] nums = new int[]{1, 2, 3};
         Solution solution = new Solution();
         List<List<Integer>> permute = permute(nums);
         for (int i = 0; i < permute.size(); i++) {
             System.out.println(permute.get(i));
         }
+
     }
 
     // curSize 表示当前的路径 path 里面有多少个元素
@@ -25,7 +26,7 @@ public class fullPermutation {
         }
         for (int i = 0; i < len; i++) {
             if (!visited[i]) {
-                if (i > 0 && nums[i] == nums[i-1] && visited[i-1] == false) continue;
+//                if (i > 0 && nums[i] == nums[i-1] && visited[i-1] == false) continue;
                 path.push(nums[i]);
                 visited[i] = true;
                 generatePermution(nums, visited, curSize + 1, len, path, res);
@@ -50,14 +51,13 @@ public class fullPermutation {
         return res;
     }
 
-    public void process(int[] candidates, int start, int target, List<Integer> list) {
+    public void process(int[] candidates, int start, int target, List<Integer> list, List<List<Integer>> res) {
         if (target < 0) return;
-
-//        if (target == 0) res.add(new ArrayList(list));
+        if (target == 0) res.add(new ArrayList(list));
         else {
             for (int i = start; i < candidates.length; i++) {
                 list.add(candidates[i]);
-                process(candidates, i, target - candidates[i], list);
+                process(candidates, i, target - candidates[i], list, res);
                 list.remove(list.size() - 1);
             }
         }

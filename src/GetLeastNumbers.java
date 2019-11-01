@@ -6,6 +6,7 @@ public class GetLeastNumbers {
         int [] b = new int[]{4,5,1,6,2,7,3,8};
 
         sort(a, 0, a.length - 1);
+        System.out.println("Kth: " + selectKth(b, 0));
         System.out.println("Sorted arrays: " + Arrays.toString(a));
         System.out.println("binary search for 4: " + binarySearch(a, 4));
         System.out.println("binary search for 9: " + binarySearch(a, 9));
@@ -64,8 +65,8 @@ public class GetLeastNumbers {
         while (lo < hi){
             int p = Partitation(arr, lo, hi);
             if (p == k) return arr[k];
-            if (p < k) hi = p - 1;
-            if (p > k) lo = p + 1;
+            if (p < k) lo = p + 1;
+            if (p > k) hi = p - 1;
         }
         return arr[k];
     }

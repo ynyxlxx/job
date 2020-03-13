@@ -10,6 +10,8 @@ public class test {
             ArrayList<String> arrayList = new ArrayList<>();
             TreeSet<Integer> ts = new TreeSet<>();
 
+
+
             char a = 'A'; // 'A' = 65, '0' = 48, 'a' = 97
             for (int i = 0; i < 26; i++){
                 System.out.print((char) (97 + i));

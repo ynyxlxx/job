@@ -29,7 +29,8 @@ public class hashMapTest {
         map.put("E", 50);
         map.put("F", 60);
 
-        LinkedHashMap<String, String> link = new LinkedHashMap<>();
+//        LinkedHashMap<String, String> link = new LinkedHashMap<>();
+        Map<String, String> link = new LinkedHashMap<>();
 
         for (Map.Entry<String, Integer> entry: map.entrySet()){
             if (entry.getKey() == "E"){

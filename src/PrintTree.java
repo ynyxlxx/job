@@ -45,7 +45,7 @@ public class PrintTree {
         queue.offer(root);
         int thisLine = 1;
         int nextline = 0;
-        Boolean flag = true;
+        boolean flag = true;
         while(!queue.isEmpty())
         {
             TreeNode temp = queue.poll();
